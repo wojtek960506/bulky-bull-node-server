@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "commonjs",
+    "target": "ES6",
+    "allowSyntheticDefaultImports": true,
+    
     "outDir": "./dist",
-    "rootDir": "./app",
+    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "Node16",
+    "module": "Node16",
   },
-  "include": ["app/**/*"],
+  "include": ["src/**/*", "test/**/*.ts"],
   "exclude": ["node_modules"]
 }
