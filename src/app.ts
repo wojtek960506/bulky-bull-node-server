@@ -2,7 +2,7 @@ import express, { Response, Request} from 'express';
 import { routeNotFound } from './middleware/routeNotFound';
 import mongoose from 'mongoose';
 import { config } from './config/config';
-import { listUsers } from './controllers/usersController';
+import { routes as userRoutes } from './routes/userRoutes';
 
 const app = express();
 
@@ -24,11 +24,11 @@ export const start = async () => {
     res.send('It is time for bulky season')
   })
 
-  app.get('/users', listUsers);
+  app.use('/users', userRoutes);
 
   app.use(routeNotFound);
 
   app.listen(8080, () => {
-    console.log('Bulky Bull bulking on port 8080')
+    console.log(`Bulky Bull bulking on port ${config.PORT}`)
   });
 };
