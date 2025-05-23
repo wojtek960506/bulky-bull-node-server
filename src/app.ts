@@ -2,11 +2,9 @@ import express, { Response, Request} from 'express';
 import { routeNotFound } from './middleware/routeNotFound';
 import mongoose from 'mongoose';
 import { config } from './config/config';
-
-
+import { listUsers } from './controllers/usersController';
 
 const app = express();
-
 
 export const start = async () => {
 
@@ -25,6 +23,8 @@ export const start = async () => {
   app.get('/', (req: Request, res: Response) => {
     res.send('It is time for bulky season')
   })
+
+  app.get('/users', listUsers);
 
   app.use(routeNotFound);
 

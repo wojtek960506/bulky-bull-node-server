@@ -8,22 +8,20 @@ const PORT = Number(process.env.PORT || 1234)
 const DB_URL = process.env.DB_URL || '';
 const DB_ADMIN = process.env.DB_ADMIN || '';
 const DB_PASSWORD = process.env.DB_PASSWORD || '';
-const APP_NAME = process.env.DB_DATABASE || '';
+const DB_DATABASE = process.env.DB_DATABASE || '';
+const DB_APP_NAME = process.env.DB_APP_NAME || '';
 const DB_OPTIONS: mongoose.ConnectOptions = { 
   retryWrites: true,
   w: 'majority',
-  appName: APP_NAME
+  appName: DB_APP_NAME
 };
-
-const DB_CONNECTION = `mongodb+srv://${DB_ADMIN}:${DB_PASSWORD}@${DB_URL}`
-
+const DB_CONNECTION = `mongodb+srv://${DB_ADMIN}:${DB_PASSWORD}@${DB_URL}/${DB_DATABASE}`
 
 interface Config {
   PORT: number;
   DB_OPTIONS: mongoose.ConnectOptions;
   DB_CONNECTION: string;
 }
-
 
 export const config: Config = {
   PORT,
