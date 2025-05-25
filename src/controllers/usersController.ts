@@ -5,6 +5,7 @@ import {
   removeUser,
  } from "../models/users";
 import { Request, Response } from "express";
+import { dbWorkoutToObj } from "./workoutsController";
 
 
 export async function listUsers(req: Request, res: Response) {
@@ -42,9 +43,5 @@ const dbUserToObj = (u: any) => ({
 
 const dbUserWithWorkoutsToObj = (u: any) => ({
   ...dbUserToObj(u),
-  workouts: u.workouts.map((w: any) => ({
-    id: w._id,
-    date: w.date,
-    reps: w.reps
-  })),
+  workouts: u.workouts.map(dbWorkoutToObj),
 });
