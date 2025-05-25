@@ -2,8 +2,12 @@
 GET http://localhost:8080/api/users/
 
 ###
+# delete all users (and also all workouts)
+# DELETE http://localhost:8080/api/users/
+
+###
 # get user
-GET http://localhost:8080/api/users/6830e12c37710bbbf003c532
+GET http://localhost:8080/api/users/6830e1543185c56832af4e4d
 
 ###
 
@@ -22,3 +26,7 @@ DELETE http://localhost:8080/api/users/6830e12c37710bbbf003c531/workouts/6830e12
 ###
 # delete all workouts from user
 DELETE http://localhost:8080/api/users/6830e12c37710bbbf003c532/workouts
+
+###
+# delete a single user
+DELETE http://localhost:8080/api/users/6830e1543185c56832af4e4d

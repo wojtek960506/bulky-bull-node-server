@@ -5,7 +5,6 @@ export const dbUserToObj = (u: any) => ({
   weight: u.weight,
   height: u.height,
   age: u.age,
-  workouts: u.workouts
 });
 
 export const dbWorkoutToObj = (w: any) => ({

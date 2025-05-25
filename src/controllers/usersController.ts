@@ -2,12 +2,15 @@ import {
   getAllUsers,
   getByFullName,
   removeUser,
+  removeAllUsers,
  } from "../models/users";
 import { Request, Response } from "express";
 import {
   getAllWorkoutsByUser,
+  removeAllWorkouts,
   removeAllWorkoutsByUser,
-  removeWorkout
+  removeWorkout,
+  removeWorkouts
 } from "../models/workouts";
 import {
   dbUserToObj,
@@ -34,6 +37,12 @@ export async function getUser(req: Request, res: Response) {
   res.status(200).json(dbUserWithWorkoutsToObj(user))
 }
 
+export async function deleteAllUsers(req: Request, res: Response) {
+  const deletedWorkouts = await removeAllWorkouts();
+  const deletedUsers = await removeAllUsers();
+  res.status(200).json({ deletedUsers, deletedWorkouts });
+}
+
 export async function getUserWorkouts(req: Request, res: Response) {
   const { id } = req.params;
   const workouts = await getAllWorkoutsByUser(id);
@@ -56,6 +65,11 @@ export async function deleteUserWorkouts(req: Request, res: Response) {
 }
 
 export async function deleteUser(req: Request, res: Response) {
-  const deletedUser = await removeUser(req.params.id)
-  console.log('deletedUser:', deletedUser);
+  const { user } = res.locals;
+
+  const workoutsIds: string[] = user.workouts.map((w: { id: string }) => w.id);
+  const deletedWorkouts = await removeWorkouts(workoutsIds);
+  const deletedUser = await removeUser(user.id)
+  
+  res.status(200).json({ deletedUser, deletedWorkouts });
 }

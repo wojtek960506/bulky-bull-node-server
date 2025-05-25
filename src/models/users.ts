@@ -34,4 +34,6 @@ export async function removeUser(id: string) {
   return await User.deleteOne({ _id: id });
 }
 
-
+export async function removeAllUsers() {
+  return await User.deleteMany({});
+}

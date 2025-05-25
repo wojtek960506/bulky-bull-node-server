@@ -43,37 +43,37 @@ async function createSimpleUsers() {
   const workout1 = new Workout({
     date: '2025-05-01',
     reps: 11,
-    user_cde: user1._id
+    user: user1._id
   });
 
   const workout2 = new Workout({
     date: '2024-05-02',
     reps: 22,
-    user_cde: user1._id
+    user: user1._id
   });
 
   const workout3 = new Workout({
     date: '2024-05-03',
     reps: 33,
-    user_cde: user2._id
+    user: user2._id
   });
 
   const workout4 = new Workout({
     date: '2024-05-04',
     reps: 44,
-    user_cde: user2._id
+    user: user2._id
   });
 
   const workout5 = new Workout({
     date: '2024-05-05',
     reps: 55,
-    user_cde: user3._id
+    user: user3._id
   });
 
   const workout6 = new Workout({
     date: '2024-05-06',
     reps: 66,
-    user_cde: user3._id
+    user: user3._id
   });
 
   user1.workouts.push(workout1._id, workout2._id)

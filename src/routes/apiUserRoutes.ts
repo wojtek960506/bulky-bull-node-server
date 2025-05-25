@@ -4,6 +4,8 @@ import { getUser,
   getUserWorkout,
   getUserWorkouts,
   getUsers,
+  deleteAllUsers,
+  deleteUser,
   deleteUserWorkout,
   deleteUserWorkouts
 } from "../controllers/usersController";
@@ -16,9 +18,16 @@ export const routes = Router();
 
 // /api/users
 routes.get('/', getUsers);
+routes.delete('/', deleteAllUsers);
 routes.get('/:id', userNotFound, getUser);
+routes.delete('/:id', userNotFound, deleteUser);
 routes.get('/:firstName-:lastName', getUsersByFullName);
 routes.get('/:id/workouts', userNotFound, getUserWorkouts);
+routes.delete(
+  '/:id/workouts',
+  userNotFound,
+  deleteUserWorkouts
+);
 routes.get(
   '/:id/workouts/:workoutId',
   userNotFound,
@@ -32,8 +41,4 @@ routes.delete(
   workoutNotBelongToUser,
   deleteUserWorkout
 );
-routes.delete(
-  '/:id/workouts',
-  userNotFound,
-  deleteUserWorkouts
-);
+
