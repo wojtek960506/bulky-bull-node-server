@@ -3,13 +3,22 @@ GET http://localhost:8080/api/users/
 
 ###
 # get user
-GET http://localhost:8080/api/users/6830e12c37710bbbf003c535
+GET http://localhost:8080/api/users/6830e12c37710bbbf003c532
 
 ###
 
 # get all workouts for user
-GET http://localhost:8080/api/users/6830e12c37710bbbf003c531/workouts
+GET http://localhost:8080/api/users/6830e12c37710bbbf003c532/workouts
 
 ###
 # get single workout for user
 GET http://localhost:8080/api/users/6830e12c37710bbbf003c531/workouts/6830e12c37710bbbf003c535
+
+
+###
+# delete a single workout from user
+DELETE http://localhost:8080/api/users/6830e12c37710bbbf003c531/workouts/6830e12c37710bbbf003c535
+
+###
+# delete all workouts from user
+DELETE http://localhost:8080/api/users/6830e12c37710bbbf003c532/workouts

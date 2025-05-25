@@ -1,18 +1,19 @@
 import { 
   getAllUsers,
   getByFullName,
-  getUserById,
   removeUser,
  } from "../models/users";
 import { Request, Response } from "express";
-import { getAllWorkoutsByUser, getWorkoutById } from "../models/workouts";
-import { apiRestError } from "../utils/errors";
+import {
+  getAllWorkoutsByUser,
+  removeAllWorkoutsByUser,
+  removeWorkout
+} from "../models/workouts";
 import {
   dbUserToObj,
   dbUserWithWorkoutsToObj,
   dbWorkoutToObj
 } from "../utils/objectConverters";
-import { Types } from "mongoose";
 
 
 export async function getUsers(req: Request, res: Response) {
@@ -40,28 +41,19 @@ export async function getUserWorkouts(req: Request, res: Response) {
 }
 
 export async function getUserWorkout(req: Request, res: Response) {
-  const { id, workoutId } = req.params;
-  const { user } = res.locals;
-
-  if (!user.workouts.some((w: { _id: Types.ObjectId } ) => w._id.equals(workoutId))) {
-    apiRestError(res, 403, `Workout with id: '${workoutId}' does not belong to user with id: '${id}'`)
-    return;
-  }
-
-  const workout = await getWorkoutById(req.params.workoutId);
-
-  if (!workout) {
-    apiRestError(res, 404, `Workout with id: '${workoutId}' not found`);
-    return;
-  }
-
+  const { workout } = res.locals;
   res.status(200).json(dbWorkoutToObj(workout));
 }
 
-export async function deleteUserWorkouts(req: Request, res: Response) {
-
+export async function deleteUserWorkout(req: Request, res: Response) {
+  const deletedWorkout = await removeWorkout(req.params.workoutId);
+  res.status(200).json(deletedWorkout);
 }
 
+export async function deleteUserWorkouts(req: Request, res: Response) {
+  const deletedWorkouts = await removeAllWorkoutsByUser(req.params.id);
+  res.status(200).json(deletedWorkouts);
+}
 
 export async function deleteUser(req: Request, res: Response) {
   const deletedUser = await removeUser(req.params.id)
