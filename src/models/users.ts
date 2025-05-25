@@ -18,10 +18,20 @@ export const userSchema = new mongoose.Schema({
 
 export const User = mongoose.model('User', userSchema);
 
-export async function getAll() {
+export async function getAllUsers() {
   return await User.find();
 }
 
 export async function getByFullName(firstNameLower: string, lastNameLower: string) {
   return await User.find({ firstNameLower, lastNameLower });
 }
+
+export async function getUserById(id: string) {
+  return await User.findById(id).populate('workouts');
+}
+
+export async function removeUser(id: string) {
+  return await User.deleteOne({ _id: id });
+}
+
+

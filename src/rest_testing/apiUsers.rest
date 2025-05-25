@@ -1,0 +1,5 @@
+GET http://localhost:8080/api/users/
+
+###
+
+GET http://localhost:8080/api/users/6830e12c37710bbbf003c530

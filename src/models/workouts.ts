@@ -10,3 +10,19 @@ const workoutSchema = new mongoose.Schema({
 })
 
 export const Workout = mongoose.model('Workout', workoutSchema);
+
+export async function getAllWorkouts() {
+  return await Workout.find();
+}
+
+export async function getById(id: string) {
+  return await Workout.findById(id);
+}
+
+export async function removeWorkout(id: string) {
+  return await Workout.deleteOne({ _id: id });
+}
+
+export async function removeAllWorkoutsByUser(userId: string) {
+  return await Workout.deleteMany({ user_cde: userId })
+};
