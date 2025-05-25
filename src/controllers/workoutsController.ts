@@ -5,6 +5,7 @@ import {
   removeWorkout
 } from "../models/workouts";
 import { Request, Response } from "express";
+import { dbWorkoutToObj } from "../utils/objectConverters";
 
 
 export async function listWorkouts(req: Request, res: Response) {
@@ -29,8 +30,3 @@ export async function deleteAllWorkoutsByUser(req: Request, res: Response) {
   res.status(200).json(deletedWorkouts);
 }
 
-export const dbWorkoutToObj = (w: any) => ({
-  id: w._id,
-  date: w.date,
-  reps: w.reps,
-});

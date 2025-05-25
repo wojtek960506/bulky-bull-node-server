@@ -19,7 +19,7 @@ export async function getAllWorkoutsByUser(userId: string) {
   return await Workout.find({ user_cde: userId });
 }
 
-export async function getById(id: string) {
+export async function getWorkoutById(id: string) {
   return await Workout.findById(id);
 }
 

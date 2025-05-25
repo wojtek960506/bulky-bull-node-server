@@ -1,5 +1,15 @@
+# get all users
 GET http://localhost:8080/api/users/
 
 ###
+# get user
+GET http://localhost:8080/api/users/6830e12c37710bbbf003c535
 
-GET http://localhost:8080/api/users/6830e12c37710bbbf003c530
+###
+
+# get all workouts for user
+GET http://localhost:8080/api/users/6830e12c37710bbbf003c531/workouts
+
+###
+# get single workout for user
+GET http://localhost:8080/api/users/6830e12c37710bbbf003c531/workouts/6830e12c37710bbbf003c535
