@@ -1,5 +1,4 @@
 import {
-  getAllWorkouts,
   getAllWorkoutsByUser,
   removeAllWorkoutsByUser,
   removeWorkout
@@ -7,11 +6,6 @@ import {
 import { Request, Response } from "express";
 import { dbWorkoutToObj } from "../utils/objectConverters";
 
-
-export async function listWorkouts(req: Request, res: Response) {
-  const workouts = await getAllWorkouts();
-  res.status(200).json(workouts.map(dbWorkoutToObj));
-}
 
 export async function getUserWorkouts(req: Request, res: Response) {
   const workouts = await getAllWorkoutsByUser(req.params.userId);

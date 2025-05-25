@@ -11,10 +11,6 @@ const workoutSchema = new mongoose.Schema({
 
 export const Workout = mongoose.model('Workout', workoutSchema);
 
-export async function getAllWorkouts() {
-  return await Workout.find();
-}
-
 export async function getAllWorkoutsByUser(userId: string) {
   return await Workout.find({ user_cde: userId });
 }

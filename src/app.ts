@@ -3,7 +3,6 @@ import { routeNotFound } from './middleware/routeNotFound';
 import mongoose from 'mongoose';
 import { config } from './config/config';
 import { routes as apiUserRoutes } from './routes/apiUserRoutes';
-import { routes as apiWorkoutRoutes } from './routes/apiWorkoutRoutes';
 
 
 const app = express();
@@ -26,8 +25,11 @@ export const start = async () => {
     res.send('It is time for bulky season')
   })
 
+  app.get('/api', (req: Request, res: Response) => {
+    res.status(200).json({ bulkyMessage: 'It is time for bulky season' });
+  })
+
   app.use('/api/users', apiUserRoutes);
-  app.use('/api/workouts', apiWorkoutRoutes);
 
   app.use(routeNotFound);
 
