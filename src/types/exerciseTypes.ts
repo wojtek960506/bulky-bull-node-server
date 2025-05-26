@@ -6,3 +6,5 @@ export type ExerciseToCreate = {
 };
 
 export type ExercisesToCreate = ExerciseToCreate[];
+
+export type ExerciseWithId = ExerciseToCreate & { id: string };

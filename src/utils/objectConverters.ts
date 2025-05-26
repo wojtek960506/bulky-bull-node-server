@@ -7,10 +7,11 @@ export const dbUserToObj = (u: any) => ({
   age: u.age,
 });
 
+// TODO: update it according to updates in Workout model
 export const dbWorkoutToObj = (w: any) => ({
   id: w._id,
   date: w.date,
-  reps: w.reps,
+  userId: w.user,
 });
 
 export const dbUserWithWorkoutsToObj = (u: any) => ({

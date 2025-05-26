@@ -7,7 +7,7 @@ GET http://localhost:8080/api/users/
 
 ###
 # get user
-GET http://localhost:8080/api/users/6830e1543185c56832af4e4d
+GET http://localhost:8080/api/users/68338d2bb07d6603835081f9
 
 ###
 
@@ -18,6 +18,31 @@ GET http://localhost:8080/api/users/6830e12c37710bbbf003c532/workouts
 # get single workout for user
 GET http://localhost:8080/api/users/6830e12c37710bbbf003c531/workouts/6830e12c37710bbbf003c535
 
+
+###
+# create workout for user
+POST http://localhost:8080/api/users/68338d2bb07d6603835081f8/workouts
+content-type: application/json
+
+{
+  "date": "27/05/2025",
+  "exercises": [{
+    "exercise": "68349972b5ee9d7df6a90013",
+    "comment": "as a warm up",
+    "sets": [{
+      "reps": 6,
+      "weightKg": 0
+    }, {
+      "reps": 8,
+      "weightKg": 0,
+      "thoughts": "those 8 reps were easier than 6 reps in the first set"
+    }, {
+      "reps": 10,
+      "weightKg": 0,
+      "thoughts": "last rep was not easy"
+    }]
+  }]
+}
 
 ###
 # delete a single workout from user
