@@ -3,6 +3,7 @@ import { routeNotFound } from './middleware/routeNotFound';
 import mongoose from 'mongoose';
 import { config } from './config/config';
 import { routes as apiUserRoutes } from './routes/apiUserRoutes';
+import { routes as apiExerciseRoutes } from './routes/apiExerciseRoutes';
 
 
 const app = express();
@@ -30,6 +31,7 @@ export const start = async () => {
   })
 
   app.use('/api/users', apiUserRoutes);
+  app.use('/api/exercises', apiExerciseRoutes);
 
   app.use(routeNotFound);
 

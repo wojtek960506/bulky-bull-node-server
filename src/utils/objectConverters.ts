@@ -17,3 +17,13 @@ export const dbUserWithWorkoutsToObj = (u: any) => ({
   ...dbUserToObj(u),
   workouts: u.workouts.map(dbWorkoutToObj),
 });
+
+export const dbExerciseToObj = (e: any) => ({
+  id: e._id,
+  name: e.name,
+  nameLower: e.nameLower,
+  namePolish: e.namePolish,
+  namePolishLower: e.namePolishLower,
+  description: e.description,
+  isStatic: e.isStatic,
+});

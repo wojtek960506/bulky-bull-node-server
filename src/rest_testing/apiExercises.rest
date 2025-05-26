@@ -1,0 +1,251 @@
+
+
+# get exercises
+GET http://localhost:8080/api/exercises
+
+###
+GET http://localhost:8080/api/exercises?name=Military press&namePolish=wyciskanie żołnierskie
+
+###
+# delete exercise by id
+DELETE http://localhost:8080/api/exercises/683455cb50ac45f4f86aa3a6
+
+###
+# delete all exercises
+DELETE http://localhost:8080/api/exercises
+
+###
+
+# create a single exercise
+POST http://localhost:8080/api/exercises
+content-type: application/json
+
+{
+  "name": "Pull-ups",
+  "namePolish": "Podciąganie na drążku nachwytem",
+  "isStatic": false
+}
+
+###
+
+# create exercises in bulk
+POST http://localhost:8080/api/exercises/bulk
+content-type: application/json
+
+[
+  {
+    "name": "Pull-ups",
+    "namePolish": "Podciąganie na drążku nachwytem",
+    "isStatic": false
+  },
+  {
+    "name": "Archer pull-ups",
+    "namePolish": "Podciąganie łucznicze nachwytem",
+    "isStatic": false
+  },
+  {
+    "name": "Chin-ups",
+    "namePolish": "Podciąganie na drążku podchwytem",
+    "isStatic": false
+  },
+  {
+    "name": "Dragon flag",
+    "namePolish": "Smocza flaga",
+    "isStatic": true
+  },
+  {
+    "name": "Dragon flag raises",
+    "namePolish": "Wznosy smoczej flagi",
+    "isStatic": false
+  },
+  {
+    "name": "One leg dragon flag raises",
+    "namePolish": "Wznosy smoczej flagi z jedną nogą wyprostowaną",
+    "isStatic": false
+  },
+  {
+    "name": "Advanced tuck dragon flag raises",
+    "namePolish": "Wznosy zaawansowanej zwiniętej smoczej flagi",
+    "isStatic": false
+  },
+  {
+    "name": "Muscle-up",
+    "namePolish": "Wejście siłowe",
+    "isStatic": false
+  },
+  {
+    "name": "Tuck front lever",
+    "namePolish": "Zwinięta waga w zwisie przodem",
+    "isStatic": true
+  },
+  {
+    "name": "Tuck front lever raises",
+    "namePolish": "Wznosy zwiniętej wagi w zwisie przodem",
+    "isStatic": true
+  },
+  {
+    "name": "Advanced tuck front lever",
+    "namePolish": "Zaawansowana zwinięta waga w zwisie przodem",
+    "isStatic": true
+  },
+  {
+    "name": "Legs to bar raises",
+    "namePolish": "Wznosy nóg do drążka",
+    "isStatic": false
+  },
+  {
+    "name": "Push-ups",
+    "namePolish": "Pompki",
+    "isStatic": false
+  },
+  {
+    "name": "Kneeling fingertip push-ups",
+    "namePolish": "Pompki na palcach na kolanach",
+    "isStatic": false
+  },
+  {
+    "name": "Fingertip push-ups",
+    "namePolish": "Pompki na palcach",
+    "isStatic": false
+  },
+  {
+    "name": "Diamond push-ups",
+    "namePolish": "Pompki diamentowe",
+    "isStatic": false
+  },
+  {
+    "name": "Pseudo planche push-ups",
+    "namePolish": "Pompki w pozycji pseudo planche",
+    "isStatic": false
+  },
+  {
+    "name": "Archer push-ups",
+    "namePolish": "Pompki łucznicze",
+    "isStatic": false
+  },
+  {
+    "name": "Pike push ups",
+    "namePolish": "Pompki w pozycji szczupak",
+    "isStatic": false
+  },
+  {
+    "name": "Advanced pike push ups",
+    "namePolish": "Zaawansowane pompki w pozycji szczupak",
+    "isStatic": false
+  },
+  {
+    "name": "Wall handstand push-ups",
+    "namePolish": "Pompki na rękach przy ścianie",
+    "isStatic": true
+  },
+  {
+    "name": "Handstand push-ups",
+    "namePolish": "Pompki na rękach",
+    "isStatic": true
+  },
+  {
+    "name": "Headstand",
+    "namePolish": "Stanie na głowie",
+    "isStatic": true
+  },
+  {
+    "name": "Handstand",
+    "namePolish": "Stanie na rękach",
+    "isStatic": true
+  },
+  {
+    "name": "Back-to-wall handstand",
+    "namePolish": "Stanie na rękach plecami do ściany",
+    "isStatic": true
+  },
+  {
+    "name": "Face-to-wall handstand",
+    "namePolish": "Stanie na rękach twarzą do ściany",
+    "isStatic": true
+  },
+  {
+    "name": "Dips",
+    "namePolish": "Pompki na poręczach",
+    "isStatic": false
+  },
+  {
+    "name": "Barbell bench press",
+    "namePolish": "Wyciskanie sztangi na ławce poziomej",
+    "isStatic": false
+  },
+  {
+    "name": "Incline barbell bench press",
+    "namePolish": "Wyciskanie sztangi na ławce skośnej",
+    "isStatic": false
+  },
+  {
+    "name": "Military press",
+    "namePolish": "Wyciskanie żołnierskie",
+    "isStatic": false
+  },
+  {
+    "name": "Calf raises on Smith machine",
+    "namePolish": "Wspięcia na łydkach na maszynie Smith'a",
+    "isStatic": false
+  },
+  {
+    "name": "Seated calf raises machine",
+    "namePolish": "Maszyna do łydek siedząc",
+    "isStatic": false
+  },
+  {
+    "name": "Cable triceps extension",
+    "namePolish": "Prostowanie ramion na wyciągu stojąc",
+    "isStatic": false
+  },
+  {
+    "name": "Superman leg raises",
+    "namePolish": "Unoszenie nóg w leżeniu na brzuchu",
+    "isStatic": false
+  },
+  {
+    "name": "Superman upper body raises",
+    "namePolish": "Unoszenie tułowia w leżeniu na brzuchu",
+    "isStatic": false
+  },
+  {
+    "name": "Superman raises",
+    "namePolish": "Unoszenie w pozycji supermana",
+    "isStatic": false
+  },
+  {
+    "name": "Superman hold",
+    "namePolish": "Utrzymanie supermana",
+    "isStatic": true
+  },
+  {
+    "name": "Pec Dec",
+    "namePolish": "Rozpiętki w siadzie na maszynie",
+    "isStatic": false
+  },
+  {
+    "name": "Shoulder press machine",
+    "namePolish": "Maszyna do wyciskania na barki",
+    "isStatic": false
+  },
+  {
+    "name": "Leg press machine",
+    "namePolish": "Prasa do nóg",
+    "isStatic": false
+  },
+  {
+    "name": "Wheel rollouts",
+    "namePolish": "Rozjazdy na kółkach",
+    "isStatic": false
+  },
+  {
+    "name": "Kneeling wheel rollouts",
+    "namePolish": "Rozjazdy na kółkach na kolanach",
+    "isStatic": false
+  },
+  {
+    "name": "Fingertip seated hip lift",
+    "namePolish": "Unoszenie ciała z siadu na palcach i piętach",
+    "isStatic": false
+  }
+]
