@@ -8,7 +8,7 @@ GET http://localhost:8080/api/exercises?name=Military press&namePolish=wyciskani
 
 ###
 # delete exercise by id
-DELETE http://localhost:8080/api/exercises/683455cb50ac45f4f86aa3a6
+DELETE http://localhost:8080/api/exercises/68349972b5ee9d7df6a90013
 
 ###
 # delete all exercises
@@ -21,9 +21,9 @@ POST http://localhost:8080/api/exercises
 content-type: application/json
 
 {
-  "name": "Pull-ups",
-  "namePolish": "Podciąganie na drążku nachwytem",
-  "isStatic": false
+    "name": "Advanced pike push ups",
+    "namePolish": "Zaawansowane pompki w pozycji szczupak",
+    "isStatic": false
 }
 
 ###

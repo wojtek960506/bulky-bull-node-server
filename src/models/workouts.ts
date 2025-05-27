@@ -56,11 +56,11 @@ const workoutSchema = new mongoose.Schema({
 export const Workout = mongoose.model('Workout', workoutSchema);
 
 export async function getAllWorkoutsByUser(userId: string) {
-  return await Workout.find({ user: userId });
+  return await Workout.find({ user: userId }).populate('exercises.exercise');
 }
 
 export async function getWorkoutById(id: string) {
-  return await Workout.findById(id);
+  return await Workout.findById(id).populate('exercises.exercise');
 }
 
 export async function insertWorkout(workout: WorkoutToCreate) {

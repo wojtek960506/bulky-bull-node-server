@@ -70,7 +70,7 @@ export async function createWorkout(req: Request, res: Response) {
     }
     user.workouts.push(newWorkout._id);
     await user.save();
-    res.status(204).json(newWorkout);
+    res.status(201).json(newWorkout);
   } catch (error: any) {
     console.log(error);
     apiRestError(res, 500, error.message);

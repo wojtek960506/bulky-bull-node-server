@@ -27,7 +27,7 @@ export async function getByFullName(firstNameLower: string, lastNameLower: strin
 }
 
 export async function getUserById(id: string) {
-  return await User.findById(id).populate('workouts');
+  return await User.findById(id);
 }
 
 export async function removeUser(id: string) {

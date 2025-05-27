@@ -12,6 +12,7 @@ export const dbWorkoutToObj = (w: any) => ({
   id: w._id,
   date: w.date,
   userId: w.user,
+  exercises: w.exercises
 });
 
 export const dbUserWithWorkoutsToObj = (u: any) => ({
