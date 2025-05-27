@@ -1,3 +1,6 @@
+import { ExerciseDocument } from "../models/exercises";
+import { ExerciseObj } from "../types/exerciseTypes";
+
 export const dbUserToObj = (u: any) => ({
   id: u._id,
   firstName: u.firstName,
@@ -20,12 +23,10 @@ export const dbUserWithWorkoutsToObj = (u: any) => ({
   workouts: u.workouts.map(dbWorkoutToObj),
 });
 
-export const dbExerciseToObj = (e: any) => ({
-  id: e._id,
+export const dbExerciseToObj = (e: ExerciseDocument): ExerciseObj => ({
+  id: e._id.toString(),
   name: e.name,
-  nameLower: e.nameLower,
   namePolish: e.namePolish,
-  namePolishLower: e.namePolishLower,
   description: e.description,
   isStatic: e.isStatic,
 });

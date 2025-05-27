@@ -1,7 +1,9 @@
-import mongoose from "mongoose";
-import { ExercisesToCreate, ExerciseToCreate } from "../types/exerciseTypes";
+import mongoose, { DeleteResult, HydratedDocument } from "mongoose";
+import { BulkExercises, IExercise } from "../types/exerciseTypes";
 
-const exerciseSchema = new mongoose.Schema({
+export type ExerciseDocument = HydratedDocument<IExercise>;
+
+const exerciseSchema = new mongoose.Schema<IExercise>({
   name: {
     type: String,
     unique: true,
@@ -19,36 +21,36 @@ const exerciseSchema = new mongoose.Schema({
   }
 });
 
-export const Exercise = mongoose.model('Exercise', exerciseSchema);
+export const Exercise = mongoose.model<IExercise>('Exercise', exerciseSchema);
 
-export async function findAllExercises() {
+export async function findAllExercises(): Promise<ExerciseDocument[]> {
   return await Exercise.find({});
 }
 
-export async function findExerciseById(id: string) {
-  return await Exercise.findOne({id})
+export async function findExerciseById(id: string): Promise<ExerciseDocument | null> {
+  return await Exercise.findById(id);
 }
 
-export async function findExerciseByName(name: string) {
+export async function findExerciseByName(name: string): Promise<ExerciseDocument| null> {
   return await Exercise.findOne({ name: new RegExp(name, 'i') });
 }
 
-export async function findExerciseByNamePolish(namePolish: string) {
+export async function findExerciseByNamePolish(namePolish: string): Promise<ExerciseDocument | null> {
   return await Exercise.findOne({ namePolish: new RegExp(namePolish, 'i') });
 }
 
-export async function insertExercise(exercise: ExerciseToCreate) {
+export async function insertExercise(exercise: IExercise): Promise<ExerciseDocument> {
   return await Exercise.create(exercise);
 }
 
-export async function insertExercisesBulk(exercises: ExercisesToCreate) {
+export async function insertExercisesBulk(exercises: BulkExercises): Promise<ExerciseDocument[]> {
   return await Exercise.insertMany(exercises, { ordered: true });
 }
 
-export async function removeExerciseById(id: string) {
+export async function removeExerciseById(id: string): Promise<ExerciseDocument | null> {
   return await Exercise.findByIdAndDelete(id);
 }
 
-export async function removeAllExercises() {
+export async function removeAllExercises(): Promise<DeleteResult> {
   return await Exercise.deleteMany({});
 }

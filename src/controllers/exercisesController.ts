@@ -6,18 +6,21 @@ import {
   findExerciseByNamePolish,
   insertExercise,
   insertExercisesBulk,
-  removeAllExercises
+  removeAllExercises,
+  ExerciseDocument
 } from "../models/exercises";
 import { dbExerciseToObj } from "../utils/objectConverters";
 import { apiRestError } from "../utils/errors";
-import { ExercisesToCreate, ExerciseToCreate } from "../types/exerciseTypes";
+import { ExerciseResLocals, BulkExercises, IExercise } from "../types/exerciseTypes";
+import { checkExercise } from "../utils/checkObjects";
+import { DeleteResult } from "mongoose";
 
 
-export async function getExercises(req: Request, res: Response) {
-  const { name, namePolish } = req.query;
+export async function getExercises(req: Request, res: Response): Promise<void> {
+  const { name , namePolish } = req.query;
 
   if (name) {
-    const exercise = await findExerciseByName(name as string);
+    const exercise: ExerciseDocument | null = await findExerciseByName(name as string);
     if (!exercise) {
       apiRestError(res, 404, `Exercise with name '${name}' not found.`)
       return;
@@ -26,7 +29,7 @@ export async function getExercises(req: Request, res: Response) {
     return;
   }
   if (namePolish) {
-    const exercise = await findExerciseByNamePolish(namePolish as string);
+    const exercise: ExerciseDocument | null = await findExerciseByNamePolish(namePolish as string);
     if (!exercise) {
       apiRestError(res, 404, `Exercise with polish name '${namePolish}' not found.`)
       return;
@@ -35,35 +38,22 @@ export async function getExercises(req: Request, res: Response) {
     return;
   }
   
-  const exercises = await findAllExercises();
+  const exercises: ExerciseDocument[] = await findAllExercises();
   res.status(200).json(exercises.map(dbExerciseToObj));
 }
 
-export async function getExerciseById(req: Request, res: Response) {
-  const { exercise } = res.locals.exercise;
+export async function getExerciseById(req: Request, res: Response<unknown, ExerciseResLocals>) {
+  const { exercise } = res.locals;
   res.status(200).json(exercise);
 }
 
-function checkExercise(res: Response, exercise: ExerciseToCreate) {
-  const { name, namePolish, isStatic } = exercise;
-  if (!name || !namePolish || isStatic === undefined) {
-    apiRestError(
-      res,
-      400,
-      "Parameters 'name', 'namePolish' and 'isStatic' are required when creating new exercise"
-    );
-    return false;
-  }
-  return true;
-}
-
-export async function createExercise(req: Request, res: Response) {
+export async function createExercise(req: Request<{}, {}, IExercise>, res: Response) {
   try {
-    const exercise: ExerciseToCreate = req.body;
+    const exercise: IExercise = req.body;
     
     if (!checkExercise(res, exercise)) return;
 
-    const newExercise = await insertExercise(exercise);
+    const newExercise: ExerciseDocument = await insertExercise(exercise);
     res.status(201).json(dbExerciseToObj(newExercise));
   } catch (error: any) {
     apiRestError(res, 500, error.message);
@@ -71,15 +61,15 @@ export async function createExercise(req: Request, res: Response) {
   }
 }
 
-export async function createExercisesBulk(req: Request, res: Response) {
+export async function createExercisesBulk(req: Request<{}, {}, BulkExercises>, res: Response) {
   try {
-    const exercises: ExercisesToCreate = req.body;
+    const exercises: BulkExercises = req.body;
 
     for (let exercise of exercises) {
       if (!checkExercise(res, exercise)) return;
     }
 
-    const newExercises = await insertExercisesBulk(exercises);
+    const newExercises: ExerciseDocument[] = await insertExercisesBulk(exercises);
     res.status(201).json(newExercises.map(dbExerciseToObj));
   } catch (error: any) {
     apiRestError(res, 500, error.message);
@@ -89,14 +79,18 @@ export async function createExercisesBulk(req: Request, res: Response) {
 
 export async function deleteExercise(req: Request, res: Response) {
   // TODO not allow to delete exercise if it is used in any workout
-
-  const deletedExercise = await removeExerciseById(req.params.id);
-  res.status(200).json(deletedExercise);
+  const { id } = req.params;
+  const deletedExercise: ExerciseDocument | null = await removeExerciseById(id);
+  if (!deletedExercise) {
+    apiRestError(res, 404, `Exercise with id: '${id}' not found`);
+    return;
+  }
+  res.status(200).json(dbExerciseToObj(deletedExercise));
 }
 
 export async function deleteAllExercises(req: Request, res: Response) {
   // TODO remove this function at some point of implementation as it is just for easier manual testing
 
-  const deletedExercises = await removeAllExercises();
+  const deletedExercises: DeleteResult = await removeAllExercises();
   res.status(200).json(deletedExercises);
 }
