@@ -27,7 +27,7 @@ content-type: application/json
 {
   "date": "27/05/2025",
   "exercises": [{
-    "exercise": "683576474878ce45127927d5",
+    "exercise": "68362f7a67b59b7bf1e622d7",
     "comment": "as a warm up",
     "sets": [{
       "reps": 6,
@@ -46,11 +46,11 @@ content-type: application/json
 
 ###
 # delete a single workout from user
-DELETE http://localhost:8080/api/users/6830e12c37710bbbf003c531/workouts/6830e12c37710bbbf003c535
+DELETE http://localhost:8080/api/users/68338d2bb07d6603835081f8/workouts/6834fa235ea4807be6e31b2b
 
 ###
 # delete all workouts from user
-DELETE http://localhost:8080/api/users/6830e12c37710bbbf003c532/workouts
+DELETE http://localhost:8080/api/users/68338d2bb07d6603835081f8/workouts
 
 ###
 # delete a single user

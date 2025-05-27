@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
-import { WorkoutToCreate } from "../types/workoutTypes";
+import mongoose, { DeleteResult } from "mongoose";
+import { IWorkout, WorkoutDocument } from "../types/workoutTypes";
+import { Types } from "mongoose";
 
-const workoutSchema = new mongoose.Schema({
+const workoutSchema = new mongoose.Schema<IWorkout>({
   date: {
     type: String,
     required: true
@@ -23,7 +24,6 @@ const workoutSchema = new mongoose.Schema({
           timeSec: Number,
           thoughts: String
         }],
-        // required: true
       }
     }],
     required: true
@@ -35,50 +35,32 @@ const workoutSchema = new mongoose.Schema({
   }
 });
 
+export const Workout = mongoose.model<IWorkout>('Workout', workoutSchema);
 
-// exercises: [{
-//   exercise: 'id_bench_press',
-//   sets: [{
-//     reps: 5,
-//     weightKg: 20
-//   }]
-
-// }, {
-//   exercise: 'id_hand_stand',
-//   sets: [{
-//     timeSec: 10
-//   }, {
-//     timeSec: 15
-//   }]
-// }]
-
-
-export const Workout = mongoose.model('Workout', workoutSchema);
-
-export async function getAllWorkoutsByUser(userId: string) {
+export async function getAllWorkoutsByUser(userId: string): Promise<WorkoutDocument[]> {
   return await Workout.find({ user: userId }).populate('exercises.exercise');
 }
 
-export async function getWorkoutById(id: string) {
+export async function getWorkoutById(id: string | Types.ObjectId) : Promise<WorkoutDocument | null> {
   return await Workout.findById(id).populate('exercises.exercise');
 }
 
-export async function insertWorkout(workout: WorkoutToCreate) {
+export async function insertWorkout(workout: IWorkout): Promise<WorkoutDocument> {
   return await Workout.create(workout);
 }
 
-export async function removeWorkout(id: string) {
+export async function removeWorkout(id: string): Promise<DeleteResult> {
   return await Workout.deleteOne({ _id: id });
 }
 
-export async function removeAllWorkoutsByUser(userId: string) {
+export async function removeAllWorkoutsByUser(userId: string): Promise<DeleteResult> {
   return await Workout.deleteMany({ user: userId })
 };
 
-export async function removeWorkouts(workoutsIds: string[]) {
+export async function removeWorkouts(workoutsIds: string[]): Promise<DeleteResult> {
   return await Workout.deleteMany({ _id: { $in: workoutsIds }});
 }
 
-export async function removeAllWorkouts() {
+export async function removeAllWorkouts(): Promise<DeleteResult> {
   return await Workout.deleteMany({});
 }

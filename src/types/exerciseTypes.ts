@@ -18,7 +18,7 @@ export interface ExerciseResLocals extends Locals {
 }
 
 export interface ExerciseObj {
-  id: string,
+  id: Types.ObjectId,
   name: string,
   namePolish: string,
   description?: string,
