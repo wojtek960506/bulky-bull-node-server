@@ -7,21 +7,34 @@ GET http://localhost:8080/api/users/
 
 ###
 # get user
-GET http://localhost:8080/api/users/68338d2bb07d6603835081f8
+GET http://localhost:8080/api/users/6836dad19ee670eebe7ab9b0
+
+###
+# create a user
+POST http://localhost:8080/api/users
+content-type: application/json
+
+{
+  "email": "wzielinski@bulkybull.com",
+  "firstName": "Wojciech",
+  "lastName": "Zieliński",
+  "weight": 82,
+  "height": 183,
+  "age": 29
+}
 
 ###
 
 # get all workouts for user
-GET http://localhost:8080/api/users/68338d2bb07d6603835081f8/workouts
+GET http://localhost:8080/api/users/6836dad19ee670eebe7ab9b0/workouts
 
 ###
 # get single workout for user
 GET http://localhost:8080/api/users/68338d2bb07d6603835081f8/workouts/6834f943230b1ea85ee43492
 
-
 ###
 # create workout for user
-POST http://localhost:8080/api/users/68338d2bb07d6603835081f8/workouts
+POST http://localhost:8080/api/users/6836dad19ee670eebe7ab9b0/workouts
 content-type: application/json
 
 {
@@ -41,6 +54,19 @@ content-type: application/json
       "weightKg": 0,
       "thoughts": "last rep was not easy"
     }]
+  }, {
+    "exercise": "68362f7a67b59b7bf1e622dc",
+    "comment": "quite nice handstand",
+    "sets": [{
+      "timeSec": 3,
+      "thoughts": "First I touched the wall and then hold it"
+    }, {
+      "timeSec": 5,
+      "thoughts": "First I touched the wall and then hold it"
+    }, {
+      "timeSec": 7,
+      "thoughts": "First I hold it and then slightly touched the wall"
+    }]
   }]
 }
 
@@ -54,4 +80,4 @@ DELETE http://localhost:8080/api/users/68338d2bb07d6603835081f8/workouts
 
 ###
 # delete a single user
-DELETE http://localhost:8080/api/users/6830e1543185c56832af4e4d
+DELETE http://localhost:8080/api/users/683763cf6e426623b62b3faa

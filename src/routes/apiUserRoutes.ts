@@ -4,6 +4,7 @@ import { getUser,
   getUsers,
   deleteAllUsers,
   deleteUser,
+  createUser,
 } from "../controllers/usersController";
 import { userNotFound } from "../middleware/userNotFound";
 import { workoutNotBelongToUser } from "../middleware/workoutNotBelongToUser";
@@ -21,6 +22,7 @@ export const routes = Router();
 
 // /api/users
 routes.get('/', getUsers);
+routes.post('/', createUser);
 routes.delete('/', deleteAllUsers);
 routes.get('/:id', userNotFound, getUser);
 routes.delete('/:id', userNotFound, deleteUser);

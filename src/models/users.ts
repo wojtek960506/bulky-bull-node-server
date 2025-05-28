@@ -41,6 +41,10 @@ export async function getUserById(id: string): Promise<UserDocument | null> {
   return await User.findById(id);
 }
 
+export async function insertUser(user: IUser): Promise<UserDocument> {
+  return await User.create(user);
+}
+
 export async function removeUser(id: string): Promise<DeleteResult> {
   return await User.deleteOne({ _id: id });
 }
