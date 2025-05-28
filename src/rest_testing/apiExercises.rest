@@ -16,6 +16,10 @@ DELETE http://localhost:8080/api/exercises/68349972b5ee9d7df6a90013
 DELETE http://localhost:8080/api/exercises
 
 ###
+# get exercise by id
+GET http://localhost:8080/api/exercises/68362f7a67b59b7bf1e622c4
+
+###
 
 # create a single exercise
 POST http://localhost:8080/api/exercises
@@ -25,6 +29,16 @@ content-type: application/json
     "name": "Advanced pike push ups",
     "namePolish": "Zaawansowane pompki w pozycji szczupak",
     "isStatic": false
+}
+
+###
+# update an exercise
+PATCH http://localhost:8080/api/exercises/68362f7a67b59b7bf1e622c4
+content-type: application/json
+
+{
+  "description": "The most simple exercises from all pull-ups",
+  "namePolish": "Podciąganie nachwytem"
 }
 
 ###

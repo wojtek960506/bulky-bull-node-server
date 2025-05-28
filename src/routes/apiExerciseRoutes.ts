@@ -7,6 +7,7 @@ import {
   deleteAllExercises,
   createExercise,
   createExercisesBulk,
+  handleUpdateExercise,
 } from "../controllers/exercisesController";
 
 export const routes = Router();
@@ -17,5 +18,6 @@ routes.get('/', getExercises);
 routes.post('/', createExercise);
 routes.delete('/', deleteAllExercises);
 routes.post('/bulk', createExercisesBulk);
-routes.get('/:id', exerciseNotFound, getExerciseById)
-routes.delete('/:id', deleteExercise)
+routes.get('/:id', exerciseNotFound, getExerciseById);
+routes.patch('/:id', handleUpdateExercise);
+routes.delete('/:id', deleteExercise);

@@ -7,16 +7,20 @@ import {
   insertExercise,
   insertExercisesBulk,
   removeAllExercises,
-  ExerciseDocument
+  ExerciseDocument,
+  updateExerciseById
 } from "../models/exercises";
 import { dbExerciseToObj } from "../utils/objectConverters";
 import { apiRestError } from "../utils/errors";
 import { ExerciseResLocals, BulkExercises, IExercise } from "../types/exerciseTypes";
 import { checkExercise } from "../utils/checkObjects";
-import { DeleteResult } from "mongoose";
+import { DeleteResult, UpdateQuery } from "mongoose";
 
 
-export async function getExercises(req: Request, res: Response): Promise<void> {
+export async function getExercises(
+  req: Request<{}, { name?: string, namePolish?: string}, {}>,
+  res: Response
+): Promise<void> {
   const { name , namePolish } = req.query;
 
   if (name) {
@@ -44,7 +48,7 @@ export async function getExercises(req: Request, res: Response): Promise<void> {
 
 export async function getExerciseById(req: Request, res: Response<unknown, ExerciseResLocals>) {
   const { exercise } = res.locals;
-  res.status(200).json(exercise);
+  res.status(200).json(dbExerciseToObj(exercise));
 }
 
 export async function createExercise(req: Request<{}, {}, IExercise>, res: Response) {
@@ -59,6 +63,21 @@ export async function createExercise(req: Request<{}, {}, IExercise>, res: Respo
     apiRestError(res, 500, error.message);
     return;
   }
+}
+
+export async function handleUpdateExercise(
+  req: Request<{ id: string }, {}, UpdateQuery<IExercise>>,
+  res: Response
+): Promise<void> {
+  const { id } = req.params;
+  const updates = req.body;
+
+  const updatedExercise = await updateExerciseById(id, updates);
+  if (!updatedExercise) {
+    apiRestError(res, 404, `Exercise with id: '${id}' was not found for update`)
+    return;
+  }
+  res.status(200).json(dbExerciseToObj(updatedExercise));
 }
 
 export async function createExercisesBulk(req: Request<{}, {}, BulkExercises>, res: Response) {

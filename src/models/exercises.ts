@@ -1,4 +1,4 @@
-import mongoose, { DeleteResult, HydratedDocument } from "mongoose";
+import mongoose, { DeleteResult, HydratedDocument, UpdateQuery } from "mongoose";
 import { BulkExercises, IExercise } from "../types/exerciseTypes";
 
 export type ExerciseDocument = HydratedDocument<IExercise>;
@@ -45,6 +45,10 @@ export async function insertExercise(exercise: IExercise): Promise<ExerciseDocum
 
 export async function insertExercisesBulk(exercises: BulkExercises): Promise<ExerciseDocument[]> {
   return await Exercise.insertMany(exercises, { ordered: true });
+}
+
+export async function updateExerciseById(id: string, updates: UpdateQuery<IExercise>): Promise<ExerciseDocument | null> {
+  return await Exercise.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
 }
 
 export async function removeExerciseById(id: string): Promise<ExerciseDocument | null> {
