@@ -37,7 +37,7 @@ export const dbWorkoutToObj = (w: WorkoutDocument) => ({
 
 export const dbUserWithWorkoutsToObj = (u: any) => ({
   ...dbUserToObj(u),
-  workouts: u.workouts.map(dbWorkoutToObj),
+  workouts: u.workouts,
 });
 
 export const dbExerciseToObj = (e: ExerciseDocument): ExerciseObj => ({

@@ -1,18 +1,20 @@
 import { Router } from "express";
 import { getUser,
   getUsersByFullName,
-  getUserWorkout,
-  getUserWorkouts,
-  createWorkout,
   getUsers,
   deleteAllUsers,
   deleteUser,
-  deleteUserWorkout,
-  deleteUserWorkouts,
 } from "../controllers/usersController";
 import { userNotFound } from "../middleware/userNotFound";
 import { workoutNotBelongToUser } from "../middleware/workoutNotBelongToUser";
 import { workoutNotFound } from "../middleware/workoutNotFound";
+import {
+  createWorkout,
+  deleteUserWorkout,
+  deleteUserWorkouts,
+  getUserWorkout,
+  getUserWorkouts
+} from "../controllers/workoutsController";
 
 
 export const routes = Router();
