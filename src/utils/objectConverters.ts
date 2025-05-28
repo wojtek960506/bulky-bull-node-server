@@ -1,34 +1,48 @@
 import { Types } from "mongoose";
 import { ExerciseDocument } from "../models/exercises";
 import { ExerciseObj } from "../types/exerciseTypes";
-import { WorkoutDocument, WorkoutExercise } from "../types/workoutTypes";
+import { WorkoutDocument, WorkoutExercise, WorkoutSet, WorkoutSetObj, WorkoutObj, StaticSet } from "../types/workoutTypes";
+import { UserDocument, UserObj } from "../types/userTypes";
 
-export const dbUserToObj = (u: any) => ({
+export const dbUserToObj = (u: UserDocument): UserObj => ({
   id: u._id,
   firstName: u.firstName,
   lastName: u.lastName,
+  email: u.email,
   weight: u.weight,
   height: u.height,
   age: u.age,
+  workouts: u.workouts
 });
 
 
-// TODO add function `dbExerciseSetToObj`
+const isStaticSet = (s: WorkoutSet): s is StaticSet => (
+  typeof s === 'object' && 'timeSec' in s && s.timeSec !== undefined
+);
 
-function isExercisePopulated(
+export const dbExerciseSetToObj = (s: WorkoutSet): WorkoutSetObj => (
+  (isStaticSet(s)) ? {
+    thoughts: s.thoughts,
+    timeSec: s.timeSec
+  } : {
+    thoughts: s.thoughts,
+    reps: s.reps,
+    weightKg: s.weightKg,
+  }
+);
+
+
+const isExercisePopulated = (
   ex: Types.ObjectId | ExerciseDocument | null
-): ex is ExerciseDocument {
-  return typeof ex === 'object' && ex !== null && 'name' in ex;
-}
+): ex is ExerciseDocument => (typeof ex === 'object' && ex !== null && 'name' in ex);
 
-// TODO: update it according to updates in Workout model
-export const dbWorkoutToObj = (w: WorkoutDocument) => ({
+export const dbWorkoutToObj = (w: WorkoutDocument): WorkoutObj => ({
   id: w._id,
   date: w.date,
-  userId: w.user,
+  userId: w.userId,
   exercises: w.exercises.map((we: WorkoutExercise) => ({
     comment: we.comment,
-    sets: we.sets,
+    sets: we.sets.map(dbExerciseSetToObj),
     exercise: isExercisePopulated(we.exercise)
       ? dbExerciseToObj(we.exercise)
       : we.exercise

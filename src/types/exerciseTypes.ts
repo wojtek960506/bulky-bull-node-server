@@ -2,7 +2,7 @@ import { Locals } from 'express';
 import { Types } from 'mongoose';
 import { ExerciseDocument } from '../models/exercises';
 
-export interface IExercise {
+export type IExercise = {
   name: string,
   namePolish: string,
   description?: string,
@@ -17,10 +17,6 @@ export interface ExerciseResLocals extends Locals {
   exercise: ExerciseDocument;
 }
 
-export interface ExerciseObj {
+export type ExerciseObj = IExercise & {
   id: Types.ObjectId,
-  name: string,
-  namePolish: string,
-  description?: string,
-  isStatic: boolean
 }

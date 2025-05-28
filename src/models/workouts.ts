@@ -28,9 +28,8 @@ const workoutSchema = new mongoose.Schema<IWorkout>({
     }],
     required: true
   },
-  user: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
     required: true
   }
 });
@@ -38,7 +37,7 @@ const workoutSchema = new mongoose.Schema<IWorkout>({
 export const Workout = mongoose.model<IWorkout>('Workout', workoutSchema);
 
 export async function getAllWorkoutsByUser(userId: string): Promise<WorkoutDocument[]> {
-  return await Workout.find({ user: userId }).populate('exercises.exercise');
+  return await Workout.find({ userId: userId }).populate('exercises.exercise');
 }
 
 export async function getWorkoutById(id: string | Types.ObjectId) : Promise<WorkoutDocument | null> {
@@ -54,7 +53,7 @@ export async function removeWorkout(id: string): Promise<DeleteResult> {
 }
 
 export async function removeAllWorkoutsByUser(userId: string): Promise<DeleteResult> {
-  return await Workout.deleteMany({ user: userId })
+  return await Workout.deleteMany({ userId: userId })
 };
 
 export async function removeWorkouts(workoutsIds: string[]): Promise<DeleteResult> {

@@ -35,7 +35,7 @@ export async function createWorkout(req: Request<{}, {}, IWorkout>, res: Respons
   const workoutBody = req.body;
 
   try {
-    workoutBody.user = user._id;
+    workoutBody.userId = user._id;
     const newWorkout = await insertWorkout(workoutBody);
     if (!newWorkout) {
       apiRestError(res, 400, `Workout for user with id: '${user._id}' was not created`);
