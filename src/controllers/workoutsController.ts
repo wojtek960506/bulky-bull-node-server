@@ -14,6 +14,7 @@ import {
 import { apiRestError } from "../utils/errors";
 import { DeleteResult } from "mongoose";
 import { IWorkout, WorkoutResLocals } from "../types/workoutTypes";
+import { UserResLocals } from "../types/userTypes";
 
 
 export async function getUserWorkouts(req: Request, res: Response) {
@@ -30,17 +31,13 @@ export async function getUserWorkout(
   res.status(200).json(dbWorkoutToObj(workout));
 }
 
-export async function createWorkout(req: Request<{}, {}, IWorkout>, res: Response): Promise<void> {
+export async function createWorkout(req: Request<{}, {}, IWorkout>, res: Response<unknown, UserResLocals>): Promise<void> {
   const { user } = res.locals;
   const workoutBody = req.body;
 
   try {
     workoutBody.userId = user._id;
     const newWorkout = await insertWorkout(workoutBody);
-    if (!newWorkout) {
-      apiRestError(res, 400, `Workout for user with id: '${user._id}' was not created`);
-      return;
-    }
     user.workouts.push(newWorkout._id);
     await user.save();
     const newWorkoutPopulated = await getWorkoutById(newWorkout._id.toString()) 

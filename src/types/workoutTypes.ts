@@ -4,29 +4,25 @@ import { ExerciseDocument } from "../models/exercises";
 import { ExerciseObj } from "./exerciseTypes";
 
 // TODO try to omit id creation for sets in model
-type NotStaticSet = { thoughts: string, _id?: Types.ObjectId, reps: number, weightKg: number }
-export type StaticSet = { thoughts: string, _id?: Types.ObjectId, timeSec: number }
+export type NotStaticSet = { thoughts: string, reps: number, weightKg: number }
+export type StaticSet = { thoughts: string, timeSec: number }
+export type IWorkoutSet = NotStaticSet | StaticSet;
 
-export type WorkoutSet = NotStaticSet | StaticSet;
-
-export type WorkoutSetObj = Omit<StaticSet, '_id'> | Omit<NotStaticSet, '_id'>
-
-export type WorkoutExercise = {
+export type IWorkoutExercise = {
   exercise: Types.ObjectId | ExerciseDocument | null,
   comment?: string,
-  sets: WorkoutSet[],
+  sets: IWorkoutSet[],
 };
 
-export type WorkoutExerciseObj = Omit<WorkoutExercise, 'exercise' | 'sets'> & {
+export type WorkoutExerciseObj = Omit<IWorkoutExercise, 'exercise'> & {
   exercise: Types.ObjectId | ExerciseObj | null,
-  sets: WorkoutSetObj[]
 }
 
 export interface IWorkout {
   date: string,
   timeStart?: string,
   timeEnd?: string,
-  exercises: WorkoutExercise[],
+  exercises: IWorkoutExercise[],
   userId: Types.ObjectId
 }
 

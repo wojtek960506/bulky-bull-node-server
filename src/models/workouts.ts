@@ -1,8 +1,29 @@
 import mongoose, { DeleteResult } from "mongoose";
-import { IWorkout, WorkoutDocument } from "../types/workoutTypes";
-import { Types } from "mongoose";
+import { IWorkout, IWorkoutExercise, IWorkoutSet, WorkoutDocument } from "../types/workoutTypes";
+import { Schema, Types } from "mongoose";
 
-const workoutSchema = new mongoose.Schema<IWorkout>({
+
+const workoutSetSchema = new Schema<IWorkoutSet>({
+  reps: Number,
+  weightKg: Number,
+  timeSec: Number,
+  thoughts: String
+}, { _id: false });
+
+const workoutExerciseSchema = new Schema<IWorkoutExercise>({
+  exercise: {
+    type: Schema.Types.ObjectId,
+    ref: 'Exercise',
+    required: true
+  },
+  comment: String,
+  sets: {
+    type: [workoutSetSchema],
+    required: true
+  }
+}, { _id: false });
+
+const workoutSchema = new Schema<IWorkout>({
   date: {
     type: String,
     required: true
@@ -10,22 +31,7 @@ const workoutSchema = new mongoose.Schema<IWorkout>({
   timeStart: String,
   timeEnd: String,
   exercises: { 
-    type: [{
-      exercise: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Exercise',
-        required: true
-      },
-      comment: String,
-      sets: {
-        type: [{
-          reps: Number,
-          weightKg: Number,
-          timeSec: Number,
-          thoughts: String
-        }],
-      }
-    }],
+    type: [workoutExerciseSchema],
     required: true
   },
   userId: {
