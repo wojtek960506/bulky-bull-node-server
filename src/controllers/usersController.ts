@@ -15,11 +15,11 @@ import {
   dbUserWithWorkoutsToObj,
 } from "../utils/objectConverters";
 import { DeleteResult } from "mongoose";
-import { IUser, UserResLocals } from "../types/userTypes";
-import { apiRestError } from "../utils/errors";
+import { UserResLocals } from "../types/userTypes";
+import { AuthenticatedRequest } from "../middleware/authMiddleware";
 
 
-export async function getUsers(req: Request, res: Response): Promise<void> {
+export async function getUsers(req: Request, res: Response): Promise<void> {  
   const users = await getAllUsers();
   res.status(200).json(users.map(dbUserToObj));
 }
@@ -33,18 +33,6 @@ export async function getUsersByFullName(req: Request, res: Response): Promise<v
 export async function getUser(req: Request, res: Response<unknown, UserResLocals>): Promise<void> {
   const { user } = res.locals;
   res.status(200).json(dbUserWithWorkoutsToObj(user))
-}
-
-export async function createUser(req: Request<{}, {}, IUser>, res: Response): Promise<void> {
-  const user = req.body;
-
-  try {
-    const newUser = await insertUser(user);
-    res.status(201).json(dbUserToObj(newUser));
-  } catch (error: any) {
-    apiRestError(res, 500, error.message);
-    return;
-  }
 }
 
 export async function deleteAllUsers(req: Request, res: Response): Promise<void> {

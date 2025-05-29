@@ -7,6 +7,10 @@ export const userSchema = new mongoose.Schema<IUser>({
     unique: true,
     required: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   firstName: {
     type: String,
     required: true,
@@ -39,6 +43,10 @@ export async function getByFullName(firstName: string, lastName: string): Promis
 
 export async function getUserById(id: string): Promise<UserDocument | null> {
   return await User.findById(id);
+}
+
+export async function getUserByEmail(email: string): Promise<UserDocument | null> {
+  return await User.findOne({ email });
 }
 
 export async function insertUser(user: IUser): Promise<UserDocument> {

@@ -5,6 +5,8 @@ dotenv.config();
 
 const PORT = Number(process.env.PORT || 1234)
 
+const JWT_SECRET = process.env.JWT_SECRET || '';
+
 const DB_URL = process.env.DB_URL || '';
 const DB_ADMIN = process.env.DB_ADMIN || '';
 const DB_PASSWORD = process.env.DB_PASSWORD || '';
@@ -21,10 +23,12 @@ interface Config {
   PORT: number;
   DB_OPTIONS: mongoose.ConnectOptions;
   DB_CONNECTION: string;
+  JWT_SECRET: string;
 }
 
 export const config: Config = {
   PORT,
   DB_OPTIONS,
-  DB_CONNECTION: DB_CONNECTION,
+  DB_CONNECTION,
+  JWT_SECRET
 }

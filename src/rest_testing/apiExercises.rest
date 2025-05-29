@@ -2,10 +2,12 @@
 
 # get exercises
 GET http://localhost:8080/api/exercises
+auth-header: Bearer jwt_token_here
 
 ###
 # get exercise by name 
 GET http://localhost:8080/api/exercises?name=Military press&namePolish=wyciskanie żołnierskie
+auth-header: Bearer jwt_token_here
 
 ###
 # delete exercise by id

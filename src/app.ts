@@ -2,8 +2,9 @@ import express, { Response, Request} from 'express';
 import { routeNotFound } from './middleware/routeNotFound';
 import mongoose from 'mongoose';
 import { config } from './config/config';
-import { routes as apiUserRoutes } from './routes/apiUserRoutes';
-import { routes as apiExerciseRoutes } from './routes/apiExerciseRoutes';
+import { router as apiAuthRouter } from './routes/apiAuthRoutes';
+import { router as apiUserRouter } from './routes/apiUserRoutes';
+import { router as apiExerciseRouter } from './routes/apiExerciseRoutes';
 
 
 const app = express();
@@ -30,8 +31,9 @@ export const start = async () => {
     res.status(200).json({ bulkyMessage: 'It is time for bulky season' });
   })
 
-  app.use('/api/users', apiUserRoutes);
-  app.use('/api/exercises', apiExerciseRoutes);
+  app.use('/api/auth', apiAuthRouter);
+  app.use('/api/users', apiUserRouter);
+  app.use('/api/exercises', apiExerciseRouter);
 
   app.use(routeNotFound);
 

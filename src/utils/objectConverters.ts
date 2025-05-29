@@ -9,6 +9,7 @@ export const dbUserToObj = (u: UserDocument): UserObj => ({
   firstName: u.firstName,
   lastName: u.lastName,
   email: u.email,
+  password: u.password,
   weight: u.weight,
   height: u.height,
   age: u.age,

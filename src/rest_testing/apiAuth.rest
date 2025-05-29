@@ -1,0 +1,25 @@
+###
+# register a new user
+POST http://localhost:8080/api/auth/register
+content-type: application/json
+
+{
+  "email": "wzielinski@bulkybull.com",
+  "password": "*",
+  "firstName": "Wojciech",
+  "lastName": "Zieliński",
+  "weight": 82,
+  "height": 183,
+  "age": 29
+}
+
+
+###
+# log in
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "wzielinski@bulkybull.com",
+  "password": "*"
+}

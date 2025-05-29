@@ -4,7 +4,6 @@ import { getUser,
   getUsers,
   deleteAllUsers,
   deleteUser,
-  createUser,
 } from "../controllers/usersController";
 import { userNotFound } from "../middleware/userNotFound";
 import { workoutNotBelongToUser } from "../middleware/workoutNotBelongToUser";
@@ -16,32 +15,33 @@ import {
   getUserWorkout,
   getUserWorkouts
 } from "../controllers/workoutsController";
+import { authMiddleware } from "../middleware/authMiddleware";
 
 
-export const routes = Router();
+export const router = Router();
+router.use(authMiddleware);
 
 // /api/users
-routes.get('/', getUsers);
-routes.post('/', createUser);
-routes.delete('/', deleteAllUsers);
-routes.get('/:id', userNotFound, getUser);
-routes.delete('/:id', userNotFound, deleteUser);
-routes.get('/:firstName-:lastName', getUsersByFullName);
-routes.get('/:id/workouts', userNotFound, getUserWorkouts);
-routes.post('/:id/workouts', userNotFound, createWorkout);
-routes.delete(
+router.get('/', getUsers);
+router.delete('/', deleteAllUsers);
+router.get('/:id', userNotFound, getUser);
+router.delete('/:id', userNotFound, deleteUser);
+router.get('/:firstName-:lastName', getUsersByFullName);
+router.get('/:id/workouts', userNotFound, getUserWorkouts);
+router.post('/:id/workouts', userNotFound, createWorkout);
+router.delete(
   '/:id/workouts',
   userNotFound,
   deleteUserWorkouts
 );
-routes.get(
+router.get(
   '/:id/workouts/:workoutId',
   userNotFound,
   workoutNotBelongToUser,
   workoutNotFound,
   getUserWorkout
 );
-routes.delete(
+router.delete(
   '/:id/workouts/:workoutId',
   userNotFound,
   workoutNotBelongToUser,

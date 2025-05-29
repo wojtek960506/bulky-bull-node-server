@@ -1,6 +1,6 @@
 # get all users
 GET http://localhost:8080/api/users/
-
+authentication: Bearer jwt_token_here
 ###
 # delete all users (and also all workouts)
 # DELETE http://localhost:8080/api/users/

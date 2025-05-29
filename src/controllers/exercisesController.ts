@@ -18,7 +18,7 @@ import { DeleteResult, UpdateQuery } from "mongoose";
 
 
 export async function getExercises(
-  req: Request<{}, { name?: string, namePolish?: string}, {}>,
+  req: Request<{}, any, any, { name?: string, namePolish?: string}>,
   res: Response
 ): Promise<void> {
   const { name , namePolish } = req.query;
