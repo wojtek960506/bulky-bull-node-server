@@ -1,6 +1,7 @@
 import express, { Response, Request} from 'express';
-import { routeNotFound } from './middleware/routeNotFound';
+import cors from 'cors';
 import mongoose from 'mongoose';
+import { routeNotFound } from './middleware/routeNotFound';
 import { config } from './config/config';
 import { router as apiAuthRouter } from './routes/apiAuthRoutes';
 import { router as apiUserRouter } from './routes/apiUserRoutes';
@@ -10,6 +11,10 @@ import { router as apiExerciseRouter } from './routes/apiExerciseRoutes';
 const app = express();
 
 export const start = async () => {
+
+  app.use(cors({
+    origin: 'http://localhost:5173',
+  }))
 
   // for processing URL-encoded form data to make it available via req.body
   app.use(express.urlencoded())
